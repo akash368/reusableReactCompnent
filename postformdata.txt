@@ -1,0 +1,47 @@
+import { useState } from "react";
+import Axios from 'axios';
+
+
+
+export const Form=()=>
+{
+    const url="https://jsonplaceholder.typicode.com/posts";
+    const [data, setData] = useState(
+        {
+            name: "",
+            date: "",
+            id: ""
+        })
+    
+    function handleSubmit(e)
+    {
+        e.preventDefault();
+        Axios.post(url,{
+            name: data.name,
+            date: data.age,
+            age: data.age
+        })
+        .then(res=>{
+            console.log(res.data);
+        })
+    }
+    function handle(e)
+    {
+        const newData = {...data};
+        newData[e.target.id] = e.target.value;
+        setData(newData);
+        console.log(newData);
+    }
+    return(
+        <>
+            <div>
+                <form onSubmit={(e)=>handleSubmit(e)}>
+                <input type="text" placeholder="name" onChange={(e)=>handle(e)} id="name" value={data.name}/>
+                <input type="date" placeholder="date"  onChange={(e)=>handle(e)} id="age" value={data.age}/>
+                <input type="number" placeholder="id" onChange={(e)=>handle(e)} id="id" value={data.id}/>
+                <button>Submit</button>
+                </form>
+            </div>
+        </>
+    );
+}
